@@ -1,0 +1,1536 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>🌸 لوحة تحكم بوت أمل للحوامل</title>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;500;600;700&family=Tajawal:wght@400;500;700&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      :root {
+        --pink: #f472b6;
+        --pink-light: #fdf2f8;
+        --pink-mid: #fbcfe8;
+        --pink-dark: #be185d;
+        --rose: #e11d48;
+        --green: #10b981;
+        --green-light: #d1fae5;
+        --amber: #f59e0b;
+        --amber-light: #fef3c7;
+        --red: #ef4444;
+        --red-light: #fee2e2;
+        --blue: #3b82f6;
+        --blue-light: #eff6ff;
+        --gray: #6b7280;
+        --gray-light: #f9fafb;
+        --gray-border: #e5e7eb;
+        --text: #1f2937;
+        --text-muted: #6b7280;
+        --white: #ffffff;
+        --shadow: 0 1px 3px rgba(0, 0, 0, 0.08), 0 1px 2px rgba(0, 0, 0, 0.04);
+        --shadow-md:
+          0 4px 6px -1px rgba(0, 0, 0, 0.07), 0 2px 4px -1px rgba(0, 0, 0, 0.04);
+        --radius: 12px;
+        --radius-sm: 8px;
+      }
+      * {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+      }
+      body {
+        font-family: "Cairo", sans-serif;
+        background: linear-gradient(135deg, #fdf2f8 0%, #fff 50%, #f0fdf4 100%);
+        min-height: 100vh;
+        color: var(--text);
+        font-size: 15px;
+      }
+
+      /* ── Header ── */
+      .header {
+        background: var(--white);
+        border-bottom: 1px solid var(--pink-mid);
+        padding: 0 2rem;
+        position: sticky;
+        top: 0;
+        z-index: 100;
+        box-shadow: var(--shadow);
+      }
+      .header-inner {
+        max-width: 1100px;
+        margin: 0 auto;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        height: 64px;
+      }
+      .logo {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+      }
+      .logo-icon {
+        font-size: 28px;
+      }
+      .logo-text {
+        font-family: "Tajawal", sans-serif;
+        font-size: 20px;
+        font-weight: 700;
+        color: var(--pink-dark);
+      }
+      .logo-sub {
+        font-size: 12px;
+        color: var(--text-muted);
+        font-weight: 400;
+      }
+      .header-badge {
+        background: var(--green-light);
+        color: var(--green);
+        font-size: 12px;
+        padding: 4px 12px;
+        border-radius: 20px;
+        font-weight: 600;
+      }
+
+      /* ── Layout ── */
+      .layout {
+        max-width: 1100px;
+        margin: 0 auto;
+        padding: 2rem;
+        display: grid;
+        grid-template-columns: 220px 1fr;
+        gap: 1.5rem;
+        align-items: start;
+      }
+
+      /* ── Sidebar ── */
+      .sidebar {
+        background: var(--white);
+        border-radius: var(--radius);
+        border: 1px solid var(--gray-border);
+        box-shadow: var(--shadow);
+        overflow: hidden;
+        position: sticky;
+        top: 80px;
+      }
+      .sidebar-section {
+        padding: 1rem;
+      }
+      .sidebar-title {
+        font-size: 11px;
+        font-weight: 600;
+        text-transform: uppercase;
+        color: var(--text-muted);
+        letter-spacing: 0.05em;
+        padding: 0 0.5rem;
+        margin-bottom: 6px;
+      }
+      .nav-item {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        padding: 9px 12px;
+        border-radius: var(--radius-sm);
+        cursor: pointer;
+        font-size: 14px;
+        color: var(--text-muted);
+        transition: all 0.15s;
+        margin-bottom: 2px;
+      }
+      .nav-item:hover {
+        background: var(--gray-light);
+        color: var(--text);
+      }
+      .nav-item.active {
+        background: var(--pink-light);
+        color: var(--pink-dark);
+        font-weight: 600;
+      }
+      .nav-item .nav-icon {
+        font-size: 16px;
+        width: 20px;
+        text-align: center;
+      }
+      .sidebar-divider {
+        height: 1px;
+        background: var(--gray-border);
+        margin: 0.5rem 0;
+      }
+      .generate-btn {
+        display: block;
+        width: 100%;
+        background: linear-gradient(135deg, var(--pink-dark), #9d174d);
+        color: white;
+        border: none;
+        border-radius: var(--radius-sm);
+        padding: 11px;
+        font-size: 14px;
+        font-family: "Cairo", sans-serif;
+        font-weight: 600;
+        cursor: pointer;
+        text-align: center;
+        transition: opacity 0.15s;
+        margin-top: 0.5rem;
+      }
+      .generate-btn:hover {
+        opacity: 0.9;
+      }
+
+      /* ── Main Content ── */
+      .main {
+        min-width: 0;
+      }
+      .panel {
+        display: none;
+      }
+      .panel.active {
+        display: block;
+      }
+
+      /* ── Cards ── */
+      .card {
+        background: var(--white);
+        border-radius: var(--radius);
+        border: 1px solid var(--gray-border);
+        box-shadow: var(--shadow);
+        margin-bottom: 1.25rem;
+        overflow: hidden;
+      }
+      .card-header {
+        padding: 1rem 1.25rem;
+        border-bottom: 1px solid var(--gray-border);
+        display: flex;
+        align-items: center;
+        gap: 10px;
+      }
+      .card-header-icon {
+        font-size: 20px;
+      }
+      .card-header-title {
+        font-size: 15px;
+        font-weight: 600;
+      }
+      .card-header-desc {
+        font-size: 13px;
+        color: var(--text-muted);
+        margin-top: 1px;
+      }
+      .card-body {
+        padding: 1.25rem;
+      }
+
+      /* ── Form Elements ── */
+      label {
+        display: block;
+        font-size: 13px;
+        font-weight: 500;
+        color: var(--text);
+        margin-bottom: 5px;
+      }
+      input[type="text"],
+      textarea,
+      select {
+        width: 100%;
+        border: 1px solid var(--gray-border);
+        border-radius: var(--radius-sm);
+        padding: 9px 12px;
+        font-size: 14px;
+        font-family: "Cairo", sans-serif;
+        color: var(--text);
+        background: var(--white);
+        transition: border-color 0.15s;
+        resize: vertical;
+      }
+      input[type="text"]:focus,
+      textarea:focus {
+        outline: none;
+        border-color: var(--pink);
+        box-shadow: 0 0 0 3px rgba(244, 114, 182, 0.1);
+      }
+      .hint {
+        font-size: 12px;
+        color: var(--text-muted);
+        margin-top: 5px;
+      }
+      .form-row {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 1rem;
+      }
+      .form-group {
+        margin-bottom: 1rem;
+      }
+      .form-group:last-child {
+        margin-bottom: 0;
+      }
+
+      /* ── Week Grid ── */
+      .week-grid {
+        display: grid;
+        grid-template-columns: repeat(8, 1fr);
+        gap: 6px;
+      }
+      .week-pill {
+        padding: 7px 4px;
+        text-align: center;
+        font-size: 12px;
+        font-weight: 500;
+        border: 1px solid var(--gray-border);
+        border-radius: var(--radius-sm);
+        cursor: pointer;
+        background: var(--white);
+        color: var(--text-muted);
+        transition: all 0.12s;
+        position: relative;
+      }
+      .week-pill:hover {
+        border-color: var(--pink);
+        color: var(--pink-dark);
+        background: var(--pink-light);
+      }
+      .week-pill.active {
+        background: var(--pink-dark);
+        color: white;
+        border-color: var(--pink-dark);
+      }
+      .week-pill.has-custom::after {
+        content: "";
+        position: absolute;
+        top: 3px;
+        left: 3px;
+        width: 5px;
+        height: 5px;
+        border-radius: 50%;
+        background: var(--green);
+      }
+      .week-editor {
+        margin-top: 1.25rem;
+        padding: 1.25rem;
+        background: var(--pink-light);
+        border-radius: var(--radius);
+        border: 1px solid var(--pink-mid);
+        display: none;
+      }
+      .week-editor.visible {
+        display: block;
+      }
+      .week-editor-title {
+        font-weight: 600;
+        font-size: 14px;
+        color: var(--pink-dark);
+        margin-bottom: 10px;
+      }
+
+      /* ── Symptom Grid ── */
+      .symptom-grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 1rem;
+      }
+
+      /* ── Buttons ── */
+      .btn {
+        padding: 8px 18px;
+        border-radius: var(--radius-sm);
+        font-size: 13px;
+        font-family: "Cairo", sans-serif;
+        font-weight: 600;
+        cursor: pointer;
+        transition: all 0.15s;
+        border: 1px solid transparent;
+        display: inline-flex;
+        align-items: center;
+        gap: 6px;
+      }
+      .btn-primary {
+        background: var(--pink-dark);
+        color: white;
+      }
+      .btn-primary:hover {
+        background: #9d174d;
+      }
+      .btn-success {
+        background: var(--green);
+        color: white;
+      }
+      .btn-success:hover {
+        background: #059669;
+      }
+      .btn-ghost {
+        background: transparent;
+        color: var(--text-muted);
+        border-color: var(--gray-border);
+      }
+      .btn-ghost:hover {
+        background: var(--gray-light);
+        color: var(--text);
+      }
+      .btn-row {
+        display: flex;
+        gap: 8px;
+        margin-top: 0.75rem;
+        flex-wrap: wrap;
+      }
+
+      /* ── Step indicator ── */
+      .steps {
+        display: flex;
+        gap: 0;
+        margin-bottom: 1.5rem;
+        background: var(--white);
+        border-radius: var(--radius);
+        border: 1px solid var(--gray-border);
+        overflow: hidden;
+        box-shadow: var(--shadow);
+      }
+      .step {
+        flex: 1;
+        padding: 10px;
+        text-align: center;
+        font-size: 12px;
+        color: var(--text-muted);
+        border-left: 1px solid var(--gray-border);
+        cursor: pointer;
+        transition: background 0.15s;
+      }
+      .step:last-child {
+        border-left: none;
+      }
+      .step:hover {
+        background: var(--gray-light);
+      }
+      .step.active {
+        background: var(--pink-light);
+        color: var(--pink-dark);
+        font-weight: 600;
+      }
+      .step-num {
+        font-size: 18px;
+        display: block;
+      }
+
+      /* ── Code output ── */
+      .code-output {
+        background: #0f172a;
+        border-radius: var(--radius);
+        padding: 1.25rem;
+        font-family: "Courier New", monospace;
+        font-size: 12px;
+        color: #e2e8f0;
+        max-height: 400px;
+        overflow-y: auto;
+        white-space: pre;
+        word-break: break-all;
+        direction: ltr;
+        text-align: left;
+        line-height: 1.6;
+        margin-top: 1rem;
+      }
+      .code-output .kw {
+        color: #93c5fd;
+      }
+      .code-output .str {
+        color: #86efac;
+      }
+
+      /* ── Alert ── */
+      .alert {
+        padding: 10px 14px;
+        border-radius: var(--radius-sm);
+        font-size: 13px;
+        display: flex;
+        align-items: flex-start;
+        gap: 8px;
+        margin-bottom: 1rem;
+      }
+      .alert-info {
+        background: var(--blue-light);
+        color: #1e40af;
+        border: 1px solid #bfdbfe;
+      }
+      .alert-success {
+        background: var(--green-light);
+        color: #065f46;
+        border: 1px solid #a7f3d0;
+      }
+      .alert-warning {
+        background: var(--amber-light);
+        color: #92400e;
+        border: 1px solid #fde68a;
+      }
+
+      /* ── Success toast ── */
+      .toast {
+        position: fixed;
+        bottom: 2rem;
+        left: 50%;
+        transform: translateX(-50%) translateY(100px);
+        background: var(--text);
+        color: white;
+        padding: 12px 24px;
+        border-radius: 30px;
+        font-size: 14px;
+        font-weight: 500;
+        transition: transform 0.3s ease;
+        z-index: 9999;
+        white-space: nowrap;
+        box-shadow: var(--shadow-md);
+      }
+      .toast.show {
+        transform: translateX(-50%) translateY(0);
+      }
+
+      /* ── Progress bar ── */
+      .progress-bar {
+        height: 4px;
+        background: var(--pink-mid);
+        border-radius: 2px;
+        margin-bottom: 1rem;
+        overflow: hidden;
+      }
+      .progress-fill {
+        height: 100%;
+        background: var(--pink-dark);
+        border-radius: 2px;
+        transition: width 0.4s ease;
+      }
+
+      .tag {
+        display: inline-block;
+        font-size: 11px;
+        padding: 2px 8px;
+        border-radius: 20px;
+        font-weight: 600;
+        margin-right: 4px;
+      }
+      .tag-pink {
+        background: var(--pink-light);
+        color: var(--pink-dark);
+      }
+      .tag-green {
+        background: var(--green-light);
+        color: #065f46;
+      }
+      .tag-amber {
+        background: var(--amber-light);
+        color: #92400e;
+      }
+
+      @media (max-width: 768px) {
+        .layout {
+          grid-template-columns: 1fr;
+          padding: 1rem;
+        }
+        .sidebar {
+          position: static;
+        }
+        .week-grid {
+          grid-template-columns: repeat(5, 1fr);
+        }
+        .symptom-grid {
+          grid-template-columns: 1fr;
+        }
+        .form-row {
+          grid-template-columns: 1fr;
+        }
+        .steps {
+          flex-wrap: wrap;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="header">
+      <div class="header-inner">
+        <div class="logo">
+          <span class="logo-icon">🌸</span>
+          <div>
+            <div class="logo-text">لوحة تحكم بوت أمل</div>
+            <div class="logo-sub">Pregnancy Bot Admin Panel</div>
+          </div>
+        </div>
+        <span class="header-badge">✅ بدون كود</span>
+      </div>
+    </div>
+
+    <div class="layout">
+      <!-- Sidebar -->
+      <div class="sidebar">
+        <div class="sidebar-section">
+          <div class="sidebar-title">الأقسام</div>
+          <div class="nav-item active" onclick="showPanel('setup')">
+            <span class="nav-icon">⚙️</span> الإعداد
+          </div>
+          <div class="nav-item" onclick="showPanel('weekly')">
+            <span class="nav-icon">📅</span> النصائح الأسبوعية
+          </div>
+          <div class="nav-item" onclick="showPanel('nutrition')">
+            <span class="nav-icon">🥗</span> التغذية
+          </div>
+          <div class="nav-item" onclick="showPanel('dangers')">
+            <span class="nav-icon">🚨</span> علامات الخطر
+          </div>
+          <div class="nav-item" onclick="showPanel('symptoms')">
+            <span class="nav-icon">🩺</span> الأعراض
+          </div>
+        </div>
+        <div class="sidebar-divider"></div>
+        <div class="sidebar-section">
+          <div class="sidebar-title">توليد الملف</div>
+          <div
+            style="
+              font-size: 12px;
+              color: var(--text-muted);
+              margin-bottom: 10px;
+              line-height: 1.5;
+            "
+          >
+            بعد تعديل المحتوى، اضغط هنا لتوليد ملف bot.py الجاهز
+          </div>
+          <button class="generate-btn" onclick="showPanel('generate')">
+            ⚡ توليد bot.py
+          </button>
+        </div>
+      </div>
+
+      <!-- Main -->
+      <div class="main">
+        <!-- ─── Setup Panel ─── -->
+        <div id="panel-setup" class="panel active">
+          <div class="card">
+            <div class="card-header">
+              <span class="card-header-icon">⚙️</span>
+              <div>
+                <div class="card-header-title">الإعداد الأساسي</div>
+                <div class="card-header-desc">
+                  أدخل رمز البوت ومعلوماته الأساسية
+                </div>
+              </div>
+            </div>
+            <div class="card-body">
+              <div class="alert alert-info">
+                💡 احصل على رمز البوت من <strong>@BotFather</strong> في تيليجرام
+                عبر أمر /newbot
+              </div>
+              <div class="form-group">
+                <label>🔑 رمز البوت (Telegram Token)</label>
+                <input
+                  type="text"
+                  id="cfg-token"
+                  placeholder="مثال: 7123456789:AAFxxxxxxxxxxxxxx"
+                />
+                <div class="hint">هذا الرمز سري — لا تشاركه مع أحد</div>
+              </div>
+              <div class="form-row">
+                <div class="form-group">
+                  <label>🤖 اسم البوت</label>
+                  <input type="text" id="cfg-botname" value="أمل" />
+                </div>
+                <div class="form-group">
+                  <label>💬 شعار البوت</label>
+                  <input
+                    type="text"
+                    id="cfg-tagline"
+                    value="مساعدتك في رحلة الحمل"
+                  />
+                </div>
+              </div>
+              <div class="form-group">
+                <label>📝 رسالة الترحيب</label>
+                <textarea id="cfg-welcome" rows="5">
+🌸 أهلاً بكِ في بوت أمل للعناية بالحوامل 🌸
+
+أنا أمل، مساعدتك الشخصية طوال رحلة حملك الجميلة! 👶
+
+يمكنني مساعدتكِ في:
+📅 نصائح مخصصة لكل أسبوع من الحمل (1-40)
+🩺 فهم الأعراض الشائعة أثناء الحمل
+🥗 إرشادات التغذية الصحية
+🚨 التعرف على علامات الخطر
+
+_تذكّري: أنا لستُ بديلاً عن طبيبكِ، لكنني هنا دائماً لدعمكِ_ 💕
+
+اختاري ما تريدين:</textarea
+                >
+              </div>
+              <div class="btn-row">
+                <button class="btn btn-primary" onclick="showPanel('weekly')">
+                  التالي: النصائح الأسبوعية ←
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- ─── Weekly Panel ─── -->
+        <div id="panel-weekly" class="panel">
+          <div class="card">
+            <div class="card-header">
+              <span class="card-header-icon">📅</span>
+              <div>
+                <div class="card-header-title">النصائح الأسبوعية</div>
+                <div class="card-header-desc">
+                  اضغط على أي أسبوع لتعديل محتواه — النقطة الخضراء تعني وجود
+                  محتوى مخصص
+                </div>
+              </div>
+            </div>
+            <div class="card-body">
+              <div class="alert alert-info">
+                📌 الأسابيع التي لم تعدّليها ستحتفظ بالمحتوى الافتراضي الكامل
+                (مكتوب مسبقاً لجميع 40 أسبوع)
+              </div>
+              <div class="week-grid" id="weekGrid"></div>
+              <div class="week-editor" id="weekEditor">
+                <div class="week-editor-title" id="weekEditorTitle">
+                  📅 تعديل الأسبوع
+                </div>
+                <textarea
+                  id="weekContent"
+                  rows="10"
+                  placeholder="اكتبي معلومات هذا الأسبوع هنا..."
+                ></textarea>
+                <div class="hint">
+                  يمكنك استخدام *نص* للخط العريض و_نص_ للخط المائل
+                </div>
+                <div class="btn-row">
+                  <button class="btn btn-success" onclick="saveWeek()">
+                    ✅ حفظ
+                  </button>
+                  <button class="btn btn-ghost" onclick="resetWeek()">
+                    ↩ استعادة الافتراضي
+                  </button>
+                  <button class="btn btn-ghost" onclick="closeWeekEditor()">
+                    إغلاق
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- ─── Nutrition Panel ─── -->
+        <div id="panel-nutrition" class="panel">
+          <div class="card">
+            <div class="card-header">
+              <span class="card-header-icon">🥗</span>
+              <div>
+                <div class="card-header-title">دليل التغذية</div>
+                <div class="card-header-desc">
+                  محتوى قسم التغذية الصحية للحامل
+                </div>
+              </div>
+            </div>
+            <div class="card-body">
+              <textarea id="content-nutrition" rows="22"></textarea>
+              <div class="btn-row">
+                <button
+                  class="btn btn-ghost"
+                  onclick="resetContent('nutrition')"
+                >
+                  ↩ استعادة الافتراضي
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- ─── Dangers Panel ─── -->
+        <div id="panel-dangers" class="panel">
+          <div class="card">
+            <div class="card-header">
+              <span class="card-header-icon">🚨</span>
+              <div>
+                <div class="card-header-title">علامات الخطر</div>
+                <div class="card-header-desc">
+                  الأعراض التي تستوجب التوجه للطبيب فوراً
+                </div>
+              </div>
+            </div>
+            <div class="card-body">
+              <div class="alert alert-warning">
+                ⚠️ تأكدي من دقة هذه المعلومات — صحة المرأة الحامل تعتمد عليها
+              </div>
+              <textarea id="content-dangers" rows="22"></textarea>
+              <div class="btn-row">
+                <button class="btn btn-ghost" onclick="resetContent('dangers')">
+                  ↩ استعادة الافتراضي
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- ─── Symptoms Panel ─── -->
+        <div id="panel-symptoms" class="panel">
+          <div class="card">
+            <div class="card-header">
+              <span class="card-header-icon">🩺</span>
+              <div>
+                <div class="card-header-title">الأعراض الشائعة</div>
+                <div class="card-header-desc">
+                  5 أعراض يظهر كل منها في زر منفصل داخل البوت
+                </div>
+              </div>
+            </div>
+            <div class="card-body">
+              <div class="symptom-grid">
+                <div class="form-group">
+                  <label>🤢 الغثيان</label>
+                  <textarea id="sym-nausea" rows="8"></textarea>
+                </div>
+                <div class="form-group">
+                  <label>🔙 ألم الظهر</label>
+                  <textarea id="sym-back" rows="8"></textarea>
+                </div>
+                <div class="form-group">
+                  <label>🦵 تورم القدمين</label>
+                  <textarea id="sym-swelling" rows="8"></textarea>
+                </div>
+                <div class="form-group">
+                  <label>🤕 الصداع</label>
+                  <textarea id="sym-headache" rows="8"></textarea>
+                </div>
+              </div>
+              <div class="form-group" style="margin-top: 1rem">
+                <label>🚽 الإمساك</label>
+                <textarea id="sym-constipation" rows="7"></textarea>
+              </div>
+              <div class="btn-row">
+                <button class="btn btn-ghost" onclick="resetSymptoms()">
+                  ↩ استعادة كل الأعراض
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- ─── Generate Panel ─── -->
+        <div id="panel-generate" class="panel">
+          <div class="card">
+            <div class="card-header">
+              <span class="card-header-icon">⚡</span>
+              <div>
+                <div class="card-header-title">توليد ملف bot.py</div>
+                <div class="card-header-desc">
+                  يجمع كل تعديلاتك في ملف Python جاهز للتشغيل
+                </div>
+              </div>
+            </div>
+            <div class="card-body">
+              <div class="steps">
+                <div class="step active">
+                  <span class="step-num">1️⃣</span>
+                  توليد الكود
+                </div>
+                <div class="step">
+                  <span class="step-num">2️⃣</span>
+                  نسخ الكود
+                </div>
+                <div class="step">
+                  <span class="step-num">3️⃣</span>
+                  لصق في VS Code
+                </div>
+                <div class="step">
+                  <span class="step-num">4️⃣</span>
+                  تشغيل البوت
+                </div>
+              </div>
+
+              <div class="alert alert-info">
+                💡 تأكدي من إدخال رمز البوت (Telegram Token) في قسم الإعداد قبل
+                التوليد
+              </div>
+
+              <button
+                class="generate-btn"
+                onclick="generateCode()"
+                style="margin-top: 0; font-size: 15px; padding: 14px"
+              >
+                ⚡ توليد bot.py الآن
+              </button>
+
+              <div
+                id="generateOutput"
+                style="display: none; margin-top: 1.5rem"
+              >
+                <div class="alert alert-success">
+                  ✅ تم توليد الملف بنجاح! اتبعي الخطوات أدناه لتطبيقه.
+                </div>
+
+                <div
+                  class="card"
+                  style="border: 2px dashed var(--pink-mid); box-shadow: none"
+                >
+                  <div class="card-body">
+                    <div
+                      style="
+                        font-weight: 600;
+                        margin-bottom: 12px;
+                        font-size: 14px;
+                      "
+                    >
+                      📋 خطوات لصق الكود في VS Code:
+                    </div>
+                    <div
+                      style="display: flex; flex-direction: column; gap: 10px"
+                    >
+                      <div
+                        style="
+                          display: flex;
+                          align-items: center;
+                          gap: 10px;
+                          font-size: 13px;
+                          color: var(--text-muted);
+                        "
+                      >
+                        <span
+                          style="
+                            background: var(--pink-dark);
+                            color: white;
+                            width: 24px;
+                            height: 24px;
+                            border-radius: 50%;
+                            display: flex;
+                            align-items: center;
+                            justify-content: center;
+                            font-size: 12px;
+                            font-weight: 700;
+                            flex-shrink: 0;
+                          "
+                          >1</span
+                        >
+                        افتح ملف <strong>bot.py</strong> في VS Code
+                      </div>
+                      <div
+                        style="
+                          display: flex;
+                          align-items: center;
+                          gap: 10px;
+                          font-size: 13px;
+                          color: var(--text-muted);
+                        "
+                      >
+                        <span
+                          style="
+                            background: var(--pink-dark);
+                            color: white;
+                            width: 24px;
+                            height: 24px;
+                            border-radius: 50%;
+                            display: flex;
+                            align-items: center;
+                            justify-content: center;
+                            font-size: 12px;
+                            font-weight: 700;
+                            flex-shrink: 0;
+                          "
+                          >2</span
+                        >
+                        اضغط <span class="tag tag-pink">Ctrl + A</span> لتحديد
+                        كل شيء
+                      </div>
+                      <div
+                        style="
+                          display: flex;
+                          align-items: center;
+                          gap: 10px;
+                          font-size: 13px;
+                          color: var(--text-muted);
+                        "
+                      >
+                        <span
+                          style="
+                            background: var(--pink-dark);
+                            color: white;
+                            width: 24px;
+                            height: 24px;
+                            border-radius: 50%;
+                            display: flex;
+                            align-items: center;
+                            justify-content: center;
+                            font-size: 12px;
+                            font-weight: 700;
+                            flex-shrink: 0;
+                          "
+                          >3</span
+                        >
+                        اضغط <span class="tag tag-pink">Delete</span> لحذف الكود
+                        القديم
+                      </div>
+                      <div
+                        style="
+                          display: flex;
+                          align-items: center;
+                          gap: 10px;
+                          font-size: 13px;
+                          color: var(--text-muted);
+                        "
+                      >
+                        <span
+                          style="
+                            background: var(--pink-dark);
+                            color: white;
+                            width: 24px;
+                            height: 24px;
+                            border-radius: 50%;
+                            display: flex;
+                            align-items: center;
+                            justify-content: center;
+                            font-size: 12px;
+                            font-weight: 700;
+                            flex-shrink: 0;
+                          "
+                          >4</span
+                        >
+                        اضغط <span class="tag tag-pink">Ctrl + V</span> للصق
+                        الكود الجديد
+                      </div>
+                      <div
+                        style="
+                          display: flex;
+                          align-items: center;
+                          gap: 10px;
+                          font-size: 13px;
+                          color: var(--text-muted);
+                        "
+                      >
+                        <span
+                          style="
+                            background: var(--pink-dark);
+                            color: white;
+                            width: 24px;
+                            height: 24px;
+                            border-radius: 50%;
+                            display: flex;
+                            align-items: center;
+                            justify-content: center;
+                            font-size: 12px;
+                            font-weight: 700;
+                            flex-shrink: 0;
+                          "
+                          >5</span
+                        >
+                        اضغط <span class="tag tag-pink">Ctrl + S</span> للحفظ ثم
+                        شغّلي البوت
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <div
+                  style="
+                    display: flex;
+                    justify-content: space-between;
+                    align-items: center;
+                    margin-top: 1rem;
+                    margin-bottom: 8px;
+                  "
+                >
+                  <span style="font-weight: 600; font-size: 14px"
+                    >📄 الكود المولّد (bot.py)</span
+                  >
+                  <button class="btn btn-primary" onclick="copyCode()">
+                    📋 نسخ الكود كاملاً
+                  </button>
+                </div>
+                <div class="code-output" id="codeBox"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- /main -->
+    </div>
+    <!-- /layout -->
+
+    <div class="toast" id="toast"></div>
+
+    <script>
+      // ═══════════════════════════════════════════════════════════
+      // DEFAULT DATA
+      // ═══════════════════════════════════════════════════════════
+      const DEFAULT_WEEKS = {
+        1: `🌱 *الأسبوع الأول*\n\nالجنين لا يزال مجرد خلية ملقحة (بويضة مخصبة).\n\n👶 *تطور الجنين:*\nالبويضة تنقسم بسرعة وتتحرك نحو الرحم للانغراس.\n\n🤰 *ما تشعرين به:*\nقد لا تشعرين بأي أعراض بعد. بعض السيدات يشعرن بتقلصات خفيفة.\n\n💡 *نصائح:*\n• ابدئي بأخذ حمض الفوليك يومياً\n• تجنبي الكحول والتدخين نهائياً\n• راجعي طبيبك لتأكيد الحمل`,
+        2: `🌱 *الأسبوع الثاني*\n\nحجم الجنين: حجم رأس الدبوس.\n\n👶 *تطور الجنين:*\nالجنين ينغرس في جدار الرحم ويبدأ في إنتاج هرمون الحمل HCG.\n\n🤰 *ما تشعرين به:*\nقد يظهر نزيف خفيف (نزيف الانغراس) وهو طبيعي تماماً.\n\n💡 *نصائح:*\n• استمري في أخذ حمض الفوليك\n• ابتعدي عن الأدوية غير الضرورية\n• احرصي على النوم الكافي`,
+        3: `🌱 *الأسبوع الثالث*\n\nحجم الجنين: حجم بذرة السمسم.\n\n👶 *تطور الجنين:*\nيبدأ تكوّن الدماغ والنخاع الشوكي والقلب والجهاز الهضمي.\n\n🤰 *ما تشعرين به:*\nغثيان خفيف، تعب، ألم في الثديين، كثرة التبول.\n\n💡 *نصائح:*\n• تجنبي الأشعة السينية\n• كلي وجبات صغيرة ومتكررة لتخفيف الغثيان\n• اشربي الماء بكميات كافية`,
+        4: `🌿 *الأسبوع الرابع*\n\nحجم الجنين: حجم حبة الخشخاش.\n\n👶 *تطور الجنين:*\nيتشكل الأنبوب العصبي الذي سيصبح الدماغ والنخاع الشوكي. يبدأ القلب في النبض!\n\n🤰 *ما تشعرين به:*\nغثيان، إرهاق شديد، رغبة في التبول كثيراً، حساسية للروائح.\n\n💡 *نصائح:*\n• الفيتامينات قبل الولادة ضرورية الآن\n• استريحي قدر الإمكان\n• تجنبي الجبن غير المبستر والأسماك عالية الزئبق`,
+        5: `🌿 *الأسبوع الخامس*\n\nحجم الجنين: حجم بذرة التفاح.\n\n👶 *تطور الجنين:*\nتتشكل الأطراف (براعم الذراعين والساقين). القلب ينبض بانتظام.\n\n🤰 *ما تشعرين به:*\nالغثيان في أوجه، تعب مستمر، ألم في الثديين.\n\n💡 *نصائح:*\n• الزنجبيل يساعد في تخفيف الغثيان\n• تجنبي الوقوف لفترات طويلة\n• حددي موعد أول زيارة للطبيب`,
+        6: `🌿 *الأسبوع السادس*\n\nحجم الجنين: حجم العدسة.\n\n👶 *تطور الجنين:*\nتتشكل ملامح الوجه (العيون، الأنف، الفم). الدماغ ينمو بسرعة كبيرة.\n\n🤰 *ما تشعرين به:*\nغثيان وقد يكون مع قيء، إرهاق، تقلبات مزاجية.\n\n💡 *نصائح:*\n• كلي البسكويت قبل النهوض من السرير\n• اشربي عصائر طبيعية\n• لا تتجاهلي مشاعرك، الدعم العاطفي مهم`,
+        7: `🌿 *الأسبوع السابع*\n\nحجم الجنين: حجم التوت.\n\n👶 *تطور الجنين:*\nالكلى والكبد يبدآن في العمل. الأصابع تبدأ في التكوّن.\n\n🤰 *ما تشعرين به:*\nالغثيان مستمر، زيادة اللعاب، حساسية مفرطة للروائح.\n\n💡 *نصائح:*\n• جربي الوخز بالإبر لتخفيف الغثيان\n• تهوية الغرف تساعد على تقليل حساسية الروائح\n• تحدثي مع طبيبك إذا كان القيء شديداً جداً`,
+        8: `🌿 *الأسبوع الثامن*\n\nحجم الجنين: حجم الفراولة.\n\n👶 *تطور الجنين:*\nيُسمى الآن جنيناً رسمياً. جميع الأعضاء الرئيسية تتشكل.\n\n🤰 *ما تشعرين به:*\nإرهاق شديد، غثيان، ألم في الظهر، إمساك.\n\n💡 *نصائح:*\n• اشربي الكثير من الماء لمنع الإمساك\n• مارسي المشي الخفيف\n• أخبري طبيبك عن كل الأدوية التي تأخذينها`,
+        9: `🍋 *الأسبوع التاسع*\n\nحجم الجنين: حجم حبة العنب.\n\n👶 *تطور الجنين:*\nالأصابع تتفصل. القلب يكتمل تقسيمه إلى 4 حجرات.\n\n🤰 *ما تشعرين به:*\nالغثيان يبدأ في التحسن قليلاً. دوار وصداع.\n\n💡 *نصائح:*\n• اجلسي ببطء عند النهوض لتفادي الدوار\n• تناولي الحديد والكالسيوم\n• موعد الألتراساوند الأول قريب!`,
+        10: `🍋 *الأسبوع العاشر*\n\nحجم الجنين: حجم حبة التمر.\n\n👶 *تطور الجنين:*\nجميع الأعضاء الحيوية مكتملة التكوين. يبدأ الجنين بالبلع والركل.\n\n🤰 *ما تشعرين به:*\nالغثيان يخف تدريجياً. البطن قد يبدأ في الظهور قليلاً.\n\n💡 *نصائح:*\n• آن الأوان لشراء ملابس حمل مريحة\n• ابدئي بتمارين قاع الحوض (كيغل)\n• تحدثي مع طبيبك عن فحص NT`,
+        11: `🍋 *الأسبوع الحادي عشر*\n\nحجم الجنين: حجم التين.\n\n👶 *تطور الجنين:*\nيستطيع فتح وإغلاق يديه. الأعضاء التناسلية تبدأ في التكوّن.\n\n🤰 *ما تشعرين به:*\nالغثيان يخف. الطاقة تعود تدريجياً.\n\n💡 *نصائح:*\n• ابدئي في التفكير في فحص الكروموسومات إن أردتِ\n• كلي الأطعمة الغنية بالحديد (عدس، سبانخ)\n• حافظي على ترطيب جسمك`,
+        12: `🍋 *الأسبوع الثاني عشر*\n\nحجم الجنين: حجم الليمونة.\n\n👶 *تطور الجنين:*\nينتهي الثلث الأول! خطر الإجهاض ينخفض كثيراً. الجنين يمتص الإبهام.\n\n🤰 *ما تشعرين به:*\nتحسن ملحوظ في الغثيان. البطن يبدأ في الظهور.\n\n💡 *نصائح:*\n• يمكنك الآن إخبار أصدقائك وعائلتك 🎉\n• احرصي على الألتراساوند الأول\n• ابدئي بتمارين اليوغا للحوامل`,
+        13: `🥝 *الأسبوع الثالث عشر*\n\nحجم الجنين: حجم الكيوي.\n\n👶 *تطور الجنين:*\nالثلث الثاني يبدأ! البصمات تتشكل. الجنين يستطيع البول.\n\n🤰 *ما تشعرين به:*\nطاقة أفضل، شهية تعود، قد تشعرين بوجع في الربط الرحمي.\n\n💡 *نصائح:*\n• الثلث الثاني هو أفضل وقت للسفر\n• ابدئي في استخدام كريم منع علامات التمدد\n• مارسي السباحة - رياضة ممتازة للحوامل`,
+        14: `🥝 *الأسبوع الرابع عشر*\n\nحجم الجنين: حجم الليمون.\n\n👶 *تطور الجنين:*\nالجنين يستطيع تحريك عينيه. تنمو الأظافر. يسمع الأصوات من الخارج!\n\n🤰 *ما تشعرين به:*\nشهية جيدة، طاقة أحسن، قد يظهر خط داكن في منتصف البطن.\n\n💡 *نصائح:*\n• تحدثي مع جنينك - يسمعك!\n• تناولي الكالسيوم لبناء عظام الجنين\n• احجزي دروس التحضير للولادة`,
+        15: `🥝 *الأسبوع الخامس عشر*\n\nحجم الجنين: حجم البرتقال.\n\n👶 *تطور الجنين:*\nالجنين يرى الضوء رغم إغماض عينيه. يتذوق السائل الأمنيوسي.\n\n🤰 *ما تشعرين به:*\nقد تبدأين في الشعور بحركات الجنين (رفرفة خفيفة).\n\n💡 *نصائح:*\n• شغّلي موسيقى هادئة لجنينك\n• فحص الألفا فيتوبروتين يُجرى الآن\n• ابدئي في التخطيط لغرفة الطفل`,
+        16: `🥑 *الأسبوع السادس عشر*\n\nحجم الجنين: حجم الأفوكادو.\n\n👶 *تطور الجنين:*\nالجهاز الهضمي يعمل. يمكن معرفة جنس الجنين بالألتراساوند!\n\n🤰 *ما تشعرين به:*\nالبطن واضح الآن. قد تشعرين بحركة الجنين بوضوح أكثر.\n\n💡 *نصائح:*\n• موعد معرفة الجنس إذا أردتِ!\n• ابدئي في النوم على الجانب الأيسر\n• انتبهي لعلامات تورم القدمين`,
+        17: `🥑 *الأسبوع السابع عشر*\n\nحجم الجنين: حجم البطاطا.\n\n👶 *تطور الجنين:*\nالجنين يتراكم عليه الدهون. يطور ردود فعل كالرمش.\n\n🤰 *ما تشعرين به:*\nألم في الظهر، مشاكل في التوازن، احتقان أنفي.\n\n💡 *نصائح:*\n• استخدمي وسادة الحمل للنوم المريح\n• تجنبي الوقوف الطويل\n• راجعي طبيب الأسنان - الهرمونات تؤثر على اللثة`,
+        18: `🥑 *الأسبوع الثامن عشر*\n\nحجم الجنين: حجم الفلفل الحلو.\n\n👶 *تطور الجنين:*\nيتكون الميالين حول الأعصاب. الجنين يسمع بوضوح ويستجيب للأصوات.\n\n🤰 *ما تشعرين به:*\nحركة الجنين واضحة جداً. دوالي الساقين قد تظهر.\n\n💡 *نصائح:*\n• تحدثي وغني لجنينك\n• ارفعي قدميك عند الجلوس\n• فحص التشوهات الشامل يُجرى قريباً`,
+        19: `🍅 *الأسبوع التاسع عشر*\n\nحجم الجنين: حجم الطماطم.\n\n👶 *تطور الجنين:*\nتتشكل المستقبلات الحسية. الجنين يطور أنماط النوم واليقظة.\n\n🤰 *ما تشعرين به:*\nألم في الظهر، صعوبة في النوم، انتفاخ وحرقة المعدة.\n\n💡 *نصائح:*\n• تجنبي الأكل الحار والدهني\n• ارفعي رأس السرير قليلاً لتخفيف الحرقة\n• سجلي حركات الجنين يومياً`,
+        20: `🌽 *الأسبوع العشرون*\n\nحجم الجنين: حجم الموز.\n\n👶 *تطور الجنين:*\nمنتصف الحمل! الجنين مغطى بمادة دهنية واقية (الفرنيكس). شعر الرأس ينمو.\n\n🤰 *ما تشعرين به:*\nالبطن كبير، حركة الجنين قوية، سرة البطن قد تبرز.\n\n💡 *نصائح:*\n• الألتراساوند المورفولوجي الشامل في هذا الأسبوع\n• ابدئي في التخطيط لإجازة الأمومة\n• استمري في تمارين كيغل يومياً`,
+        21: `🥭 *الأسبوع الحادي والعشرون*\n\nحجم الجنين: حجم الجزرة.\n\n👶 *تطور الجنين:*\nالجنين يبتلع السائل الأمنيوسي ويطور حاسة التذوق.\n\n🤰 *ما تشعرين به:*\nحركة الجنين منتظمة ومحسوسة جيداً.\n\n💡 *نصائح:*\n• سجلي أوقات حركة الجنين\n• جربي الحمام الدافئ (ليس الساخن) لتخفيف التعب\n• ابدئي في التفكير في اسم الطفل 😊`,
+        22: `🥭 *الأسبوع الثاني والعشرون*\n\nحجم الجنين: حجم جوزة الهند.\n\n👶 *تطور الجنين:*\nالجنين يستطيع الإمساك بحبل السرة. حاسة السمع متطورة جداً.\n\n🤰 *ما تشعرين به:*\nتورم خفيف في القدمين، آلام في الظهر والحوض.\n\n💡 *نصائح:*\n• تجنبي الوقوف لفترات طويلة\n• ارتدي حذاءً مريحاً ومسطحاً\n• اقرئي لجنينك - يسمع ويتعلم!`,
+        23: `🥭 *الأسبوع الثالث والعشرون*\n\nحجم الجنين: حجم المانجو.\n\n👶 *تطور الجنين:*\nالرئتان تتطوران بسرعة. الجنين لديه دورة نوم ويقظة منتظمة.\n\n🤰 *ما تشعرين به:*\nانتفاخ، حرقة المعدة، صعوبة في التنفس عند الجلوس.\n\n💡 *نصائح:*\n• كلي وجبات صغيرة ومتكررة\n• تجنبي الانحناء بعد الأكل\n• التحدث مع الجنين يعزز الرابطة العاطفية`,
+        24: `🌽 *الأسبوع الرابع والعشرون*\n\nحجم الجنين: حجم الذرة.\n\n👶 *تطور الجنين:*\nالجنين يستطيع البقاء حياً خارج الرحم بمساعدة طبية.\n\n🤰 *ما تشعرين به:*\nتقلصات برادكستون هيكس (تدريبية غير مؤلمة)، ألم الظهر.\n\n💡 *نصائح:*\n• فحص السكر التحدي يُجرى بين الأسبوع 24-28\n• تعلمي الفرق بين التقلصات الحقيقية والتدريبية\n• استمري في ممارسة الرياضة الخفيفة`,
+        25: `🥦 *الأسبوع الخامس والعشرون*\n\nحجم الجنين: حجم القرنبيط.\n\n👶 *تطور الجنين:*\nالشعر ينمو، بصمات الأصابع مكتملة. الرئتان تنتجان السرفاكتانت.\n\n🤰 *ما تشعرين به:*\nنزول إفرازات أكثر، ألم في الحوض، صعوبة في النوم.\n\n💡 *نصائح:*\n• نامي على جانبك الأيسر دائماً\n• تجنبي رفع الأشياء الثقيلة\n• ابدئي في التخطيط لحقيبة المستشفى`,
+        26: `🥦 *الأسبوع السادس والعشرون*\n\nحجم الجنين: حجم الخيار.\n\n👶 *تطور الجنين:*\nالعيون تفتح وتغلق. الجنين يستجيب للضوء والصوت بوضوح.\n\n🤰 *ما تشعرين به:*\nتقلصات تدريبية تزداد، صعوبة في التنفس، كثرة التبول.\n\n💡 *نصائح:*\n• سلطي الضوء على بطنك - الجنين سيستجيب!\n• تعلمي تمارين التنفس للولادة\n• راجعي طبيبك لمناقشة خطة الولادة`,
+        27: `🥦 *الأسبوع السابع والعشرون*\n\nحجم الجنين: حجم الكوسة.\n\n👶 *تطور الجنين:*\nآخر أسبوع في الثلث الثاني! الجنين يفتح عينيه ولديه دورات نوم منتظمة.\n\n🤰 *ما تشعرين به:*\nضيق في التنفس، حرقة، آلام في الظهر.\n\n💡 *نصائح:*\n• الثلث الثالث يبدأ الأسبوع القادم\n• حضري حقيبة المستشفى\n• ناقشي خيارات تسكين الألم أثناء الولادة`,
+        28: `🍆 *الأسبوع الثامن والعشرون*\n\nحجم الجنين: حجم الباذنجان.\n\n👶 *تطور الجنين:*\nيبدأ الثلث الثالث! الدماغ ينمو بسرعة كبيرة. الجنين يحلم!\n\n🤰 *ما تشعرين به:*\nضيق في التنفس أكثر، صعوبة في النوم، تورم القدمين.\n\n💡 *نصائح:*\n• عدّي حركات الجنين 10 حركات كل يوم\n• زيارات الطبيب تصبح كل أسبوعين\n• فحص Rh إذا كانت فصيلة دمك سالبة`,
+        29: `🍆 *الأسبوع التاسع والعشرون*\n\nحجم الجنين: حجم الكوسة الكبيرة.\n\n👶 *تطور الجنين:*\nالعظام تصبح أكثر صلابة. الجنين يضغط على الرئتين.\n\n🤰 *ما تشعرين به:*\nضيق في التنفس، حرقة المعدة، نزول إفرازات.\n\n💡 *نصائح:*\n• كلي الأطعمة الغنية بالكالسيوم\n• تجنبي السفر الطويل\n• تعلمي علامات الولادة المبكرة`,
+        30: `🎃 *الأسبوع الثلاثون*\n\nحجم الجنين: حجم الكابوتشا.\n\n👶 *تطور الجنين:*\nالدهون تتراكم تحت الجلد. الجنين يزن حوالي 1.3 كيلو.\n\n🤰 *ما تشعرين به:*\nتورم القدمين، آلام الظهر، صعوبة في التنفس.\n\n💡 *نصائح:*\n• ابدئي في تعلم تقنيات الإرضاع الطبيعي\n• حضري حقيبة المستشفى الآن\n• تحدثي مع طبيبك عن وضع الجنين`,
+        31: `🥥 *الأسبوع الحادي والثلاثون*\n\nحجم الجنين: حجم جوزة الهند الكبيرة.\n\n👶 *تطور الجنين:*\nجميع الحواس تعمل. الجنين يميز صوت الأم ويستجيب له.\n\n🤰 *ما تشعرين به:*\nتقلصات تدريبية أقوى، صعوبة في النوم، كثرة التبول الليلي.\n\n💡 *نصائح:*\n• غني لجنينك - سيتعرف على صوتك بعد الولادة\n• تجنبي الجلوس لفترات طويلة\n• حضري عقلياً لتجربة الولادة`,
+        32: `🍈 *الأسبوع الثاني والثلاثون*\n\nحجم الجنين: حجم البطيخ الصغير.\n\n👶 *تطور الجنين:*\nالجنين يتخذ وضع الرأس للأسفل (عادةً). يزن حوالي 1.7 كيلو.\n\n🤰 *ما تشعرين به:*\nضغط في الحوض، حرقة، ضيق في التنفس.\n\n💡 *نصائح:*\n• تأكدي من وضع الجنين مع الطبيب\n• فكري في خيارات الرضاعة\n• استريحي قدر الإمكان`,
+        33: `🍍 *الأسبوع الثالث والثلاثون*\n\nحجم الجنين: حجم الأناناس.\n\n👶 *تطور الجنين:*\nالرئتان شبه مكتملة. الجهاز المناعي يتطور. الجلد أقل تجعداً.\n\n🤰 *ما تشعرين به:*\nصعوبة في المشي، ضغط على المثانة، تورم.\n\n💡 *نصائح:*\n• تجنبي القيادة لمسافات طويلة\n• جهزي مستلزمات المولود\n• راجعي خطة الولادة مع طبيبك`,
+        34: `🍈 *الأسبوع الرابع والثلاثون*\n\nحجم الجنين: حجم الشمام.\n\n👶 *تطور الجنين:*\nالجهاز العصبي المركزي مكتمل. الجنين يزن حوالي 2.1 كيلو.\n\n🤰 *ما تشعرين به:*\nضغط شديد في الحوض، صعوبة في النوم، تورم.\n\n💡 *نصائح:*\n• الراحة أهم شيء الآن\n• اعرفي طريق المستشفى جيداً\n• اطلبي الدعم من العائلة`,
+        35: `🎾 *الأسبوع الخامس والثلاثون*\n\nحجم الجنين: حجم البطيخة الكبيرة.\n\n👶 *تطور الجنين:*\nالكلى مكتملة. الجنين يزن حوالي 2.4 كيلو. الرئتان جاهزتان تقريباً.\n\n🤰 *ما تشعرين به:*\nضغط على الحوض، صعوبة في التنفس تخف إذا نزل الجنين.\n\n💡 *نصائح:*\n• حقيبة المستشفى يجب أن تكون جاهزة الآن!\n• تعلمي الفرق بين الانقباضات الحقيقية والتدريبية\n• استريحي وادخري طاقتك`,
+        36: `🎃 *الأسبوع السادس والثلاثون*\n\nحجم الجنين: حجم البابايا.\n\n👶 *تطور الجنين:*\nالجنين يزن حوالي 2.7 كيلو. جميع الأعضاء جاهزة تقريباً.\n\n🤰 *ما تشعرين به:*\nقد يتحسن التنفس (تنزل الرأس). ضغط شديد في الحوض.\n\n💡 *نصائح:*\n• زيارات أسبوعية للطبيب الآن\n• تعلمي علامات الولادة الحقيقية\n• كوني هادئة ومتأهبة`,
+        37: `🍉 *الأسبوع السابع والثلاثون*\n\nحجم الجنين: حجم البطيخة.\n\n👶 *تطور الجنين:*\nالجنين يُعتبر مكتمل النمو! يزن حوالي 2.9 كيلو.\n\n🤰 *ما تشعرين به:*\nضغط شديد جداً في الحوض، كثرة التبول، تقلصات متكررة.\n\n💡 *نصائح:*\n• توجهي للمستشفى إذا جاءت الانقباضات كل 5 دقائق\n• لا تتركي حقيبة المستشفى بعيدة عنك\n• الراحة والاسترخاء مهمان جداً`,
+        38: `🍉 *الأسبوع الثامن والثلاثون*\n\nحجم الجنين: حجم القرع.\n\n👶 *تطور الجنين:*\nالجنين في وضع الولادة. يزن حوالي 3.1 كيلو.\n\n🤰 *ما تشعرين به:*\nإرهاق شديد، صعوبة في المشي، تقلصات متكررة.\n\n💡 *نصائح:*\n• راحة تامة الآن\n• استمري في عد حركات الجنين\n• توجهي للطوارئ عند أي تغيير مقلق`,
+        39: `🎯 *الأسبوع التاسع والثلاثون*\n\nحجم الجنين: حجم البطيخة الكبيرة.\n\n👶 *تطور الجنين:*\nالجنين جاهز تماماً! يزن حوالي 3.3 كيلو.\n\n🤰 *ما تشعرين به:*\nقد تنزلين مخاطاً دموياً (علامة الولادة القريبة)، تقلصات قوية.\n\n💡 *نصائح:*\n• توجهي للمستشفى إذا: كسر الكيس، نزف، انقباضات كل 5 دقائق\n• كوني هادئة - أنتِ قادرة على ذلك! 💪\n• زوجك أو مرافقك يجب أن يكون معك`,
+        40: `🌟 *الأسبوع الأربعون - موعد الولادة!*\n\nحجم الجنين: حوالي 3.4 كيلو و51 سم.\n\n👶 *الجنين جاهز!*\nطفلك مكتمل النمو ويتنفس سائل الأمنيوس تأهباً للهواء.\n\n🤰 *علامات الولادة:*\n• انكسار الكيس الأمنيوسي\n• انقباضات منتظمة كل 5 دقائق أو أقل\n• نزول المخاط الدموي\n\n🚨 *توجهي للمستشفى فوراً!*\n\n💕 أنتِ بطلة! استعدي لأجمل لحظة في حياتك!`,
+      };
+
+      const DEFAULT_NUTRITION = `🥗 *دليل التغذية الصحية للحامل*
+
+━━━━━━━━━━━━━━━━━━━━━━━━
+
+✅ *الأطعمة المفيدة والضرورية:*
+
+🥩 *البروتين:*
+• اللحوم المطبوخة جيداً (دجاج، لحم بقري)
+• السمك (سلمون، ساردين) - مرتين أسبوعياً
+• البيض المطبوخ جيداً
+• البقوليات (عدس، فول، حمص)
+
+🥛 *الكالسيوم:*
+• الحليب والألبان (3 أكواب يومياً)
+• الجبن المبستر
+• الزبادي
+• السبانخ والبروكلي
+
+🌾 *النشويات والطاقة:*
+• خبز القمح الكامل
+• الأرز البني
+• الشوفان
+• البطاطا الحلوة
+
+🍊 *الفيتامينات:*
+• الحمضيات (فيتامين C)
+• الجزر والمانجو (فيتامين A)
+• المكسرات والبذور
+• الخضار الورقية الخضراء
+
+━━━━━━━━━━━━━━━━━━━━━━━━
+
+🚫 *الأطعمة الممنوعة تماماً:*
+
+❌ الجبن الطري غير المبستر (ريكوتا، فيتا طازجة)
+❌ اللحوم النيئة أو غير المطبوخة جيداً
+❌ الأسماك عالية الزئبق (سمك أبيض كبير، سيف)
+❌ الكحول بكل أشكاله
+❌ الكافيين الزائد (أكثر من كوب قهوة)
+❌ البيض النيء أو نصف المطبوخ
+❌ الحليب غير المبستر
+
+━━━━━━━━━━━━━━━━━━━━━━━━
+
+💊 *الفيتامينات الضرورية:*
+
+• *حمض الفوليك:* 400-800 ميكروغرام يومياً (الأهم!)
+• *الحديد:* 27 ملغ يومياً - يمنع فقر الدم
+• *الكالسيوم:* 1000 ملغ يومياً - لعظام الجنين
+• *فيتامين D:* للمساعدة في امتصاص الكالسيوم
+• *أوميغا 3:* لتطور دماغ الجنين
+
+━━━━━━━━━━━━━━━━━━━━━━━━
+
+💡 *نصائح للتعامل مع الغثيان:*
+
+🍪 كلي البسكويت الجاف قبل النهوض
+🫚 تجنبي الأطعمة الدهنية والحارة
+🍋 رائحة الليمون تخفف الغثيان
+🧄 الزنجبيل (شاي أو حلوى) مفيد جداً
+⏰ كلي وجبات صغيرة كل 2-3 ساعات
+💧 اشربي الماء بين الوجبات لا أثناءها
+
+_⚠️ استشيري طبيبك قبل أخذ أي مكملات غذائية_`;
+
+      const DEFAULT_DANGERS = `🚨 *علامات الخطر - توجّهي للطبيب فوراً!*
+
+━━━━━━━━━━━━━━━━━━━━━━━━
+
+🔴 *اتصلي بالإسعاف فوراً إذا شعرتِ بـ:*
+
+🩸 *نزيف مهبلي شديد*
+سواء كان مؤلماً أو غير مؤلم - أي نزيف بعد الشهر الأول يستوجب الطوارئ
+
+💧 *كسر كيس السائل الأمنيوسي مبكراً*
+نزول سائل رائق أو مائل للصفرة من المهبل قبل الأسبوع 37
+
+🤕 *صداع شديد جداً لا يُحتمل*
+خاصة إذا كان مصحوباً بضبابية الرؤية أو وميض في العينين
+
+👁️ *اضطرابات الرؤية المفاجئة*
+رؤية مزدوجة، ضبابية، وميض، أو فقدان مؤقت للرؤية
+
+🤢 *ألم شديد في البطن العلوي أو تحت الضلوع*
+قد يكون علامة على تسمم الحمل الشديد
+
+🦵 *تورم مفاجئ وشديد في الوجه أو اليدين أو القدمين*
+خاصة مع الصداع وارتفاع ضغط الدم
+
+━━━━━━━━━━━━━━━━━━━━━━━━
+
+🟠 *راجعي الطبيب في نفس اليوم إذا لاحظتِ:*
+
+🌡️ *ارتفاع درجة الحرارة فوق 38.5°*
+الحمى أثناء الحمل خطيرة ويجب علاجها فوراً
+
+💔 *انقطاع أو ضعف ملحوظ في حركة الجنين*
+إذا لم تشعري بـ 10 حركات في ساعتين بعد الأسبوع 28
+
+🏃 *انقباضات منتظمة قبل الأسبوع 37*
+قد تكون علامة على ولادة مبكرة
+
+🔥 *حرقة أو ألم عند التبول مع حمى*
+قد يكون التهاب في الكلى
+
+━━━━━━━━━━━━━━━━━━━━━━━━
+
+⚠️ *علامات تسمم الحمل (تحتاج رعاية فورية):*
+• ارتفاع ضغط الدم فوق 140/90
+• بروتين في البول
+• صداع شديد وتورم مفاجئ
+• ألم تحت الضلع الأيمن
+
+━━━━━━━━━━━━━━━━━━━━━━━━
+
+📞 *لا تترددي أبداً في الاتصال بطبيبك!*
+_أفضل مرة واحدة زائدة عند الطبيب من تأخير خطير_ 💕`;
+
+      const DEFAULT_SYMPTOMS = {
+        nausea: `🩺 *الغثيان أثناء الحمل*\n\nالغثيان طبيعي جداً خاصة في الثلث الأول.\n\n💡 *نصائح للتخفيف:*\n• كلي البسكويت الجاف قبل النهوض من السرير\n• تناولي وجبات صغيرة كل 2-3 ساعات\n• شاي الزنجبيل مفيد جداً\n• تجنبي الروائح المزعجة\n• اشربي الماء بين الوجبات لا أثناءها\n\n🚨 *راجعي الطبيب إذا:*\nلم تستطيعي الاحتفاظ بأي طعام أو شراب لأكثر من 24 ساعة`,
+        back: `🩺 *آلام الظهر أثناء الحمل*\n\nشائعة جداً بسبب التغيرات الهرمونية وزيادة الوزن.\n\n💡 *نصائح للتخفيف:*\n• استخدمي وسادة الحمل عند النوم\n• تجنبي الوقوف أو الجلوس لفترات طويلة\n• الكمادات الدافئة تساعد\n• تمارين الحوض الخفيفة\n• ارتدي حذاءً مسطحاً مريحاً\n\n🚨 *راجعي الطبيب إذا:*\nكان الألم شديداً جداً أو مصحوباً بحمى أو ألم عند التبول`,
+        swelling: `🩺 *تورم القدمين والساقين*\n\nشائع في الثلث الثاني والثالث.\n\n💡 *نصائح للتخفيف:*\n• ارفعي قدميك عند الجلوس\n• تجنبي الوقوف الطويل\n• قللي الملح في الطعام\n• اشربي الماء الكافي\n• المشي الخفيف يساعد الدورة الدموية\n\n🚨 *توجهي للطوارئ فوراً إذا:*\nكان التورم مفاجئاً وشديداً في الوجه أو اليدين مع صداع`,
+        headache: `🩺 *الصداع أثناء الحمل*\n\nشائع خاصة في الثلث الأول.\n\n💡 *نصائح:*\n• الراحة في غرفة هادئة ومظلمة\n• ضعي كمادة باردة على الجبهة\n• اشربي الماء الكافي\n• الباراسيتامول آمن خذيه باعتدال\n• تجنبي الإجهاد\n\n🚨 *توجهي للطوارئ فوراً إذا:*\nكان الصداع شديداً جداً مع اضطراب الرؤية أو تورم مفاجئ`,
+        constipation: `🩺 *الإمساك أثناء الحمل*\n\nشائع بسبب الهرمونات وضغط الرحم.\n\n💡 *نصائح:*\n• اشربي 8-10 أكواب ماء يومياً\n• كلي الألياف (خضار، فواكه، حبوب كاملة)\n• التمر مفيد جداً للإمساك\n• المشي الخفيف يساعد\n• لا تؤجلي الحاجة للحمام\n\n_استشيري طبيبك قبل استخدام أي ملين_`,
+      };
+
+      // ═══════════════════════════════════════════════════════════
+      // STATE
+      // ═══════════════════════════════════════════════════════════
+      let weekOverrides = {};
+      let currentWeek = null;
+
+      // ═══════════════════════════════════════════════════════════
+      // INIT
+      // ═══════════════════════════════════════════════════════════
+      function init() {
+        document.getElementById("content-nutrition").value = DEFAULT_NUTRITION;
+        document.getElementById("content-dangers").value = DEFAULT_DANGERS;
+        document.getElementById("sym-nausea").value = DEFAULT_SYMPTOMS.nausea;
+        document.getElementById("sym-back").value = DEFAULT_SYMPTOMS.back;
+        document.getElementById("sym-swelling").value =
+          DEFAULT_SYMPTOMS.swelling;
+        document.getElementById("sym-headache").value =
+          DEFAULT_SYMPTOMS.headache;
+        document.getElementById("sym-constipation").value =
+          DEFAULT_SYMPTOMS.constipation;
+        buildWeekGrid();
+      }
+
+      function buildWeekGrid() {
+        const g = document.getElementById("weekGrid");
+        g.innerHTML = "";
+        for (let w = 1; w <= 40; w++) {
+          const btn = document.createElement("div");
+          btn.className = "week-pill" + (weekOverrides[w] ? " has-custom" : "");
+          btn.id = "wpill-" + w;
+          btn.textContent = w;
+          btn.title = "أسبوع " + w;
+          btn.onclick = () => editWeek(w, btn);
+          g.appendChild(btn);
+        }
+      }
+
+      // ═══════════════════════════════════════════════════════════
+      // NAVIGATION
+      // ═══════════════════════════════════════════════════════════
+      function showPanel(id) {
+        document
+          .querySelectorAll(".panel")
+          .forEach((p) => p.classList.remove("active"));
+        document
+          .querySelectorAll(".nav-item")
+          .forEach((n) => n.classList.remove("active"));
+        document.getElementById("panel-" + id).classList.add("active");
+        const order = [
+          "setup",
+          "weekly",
+          "nutrition",
+          "dangers",
+          "symptoms",
+          "generate",
+        ];
+        const idx = order.indexOf(id);
+        if (idx >= 0)
+          document.querySelectorAll(".nav-item")[idx].classList.add("active");
+      }
+
+      // ═══════════════════════════════════════════════════════════
+      // WEEKLY TIPS EDITOR
+      // ═══════════════════════════════════════════════════════════
+      function editWeek(w, btn) {
+        document
+          .querySelectorAll(".week-pill")
+          .forEach((p) => p.classList.remove("active"));
+        btn.classList.add("active");
+        currentWeek = w;
+        document.getElementById("weekEditorTitle").textContent =
+          "📅 تعديل الأسبوع " + w;
+        document.getElementById("weekContent").value =
+          weekOverrides[w] ?? DEFAULT_WEEKS[w];
+        document.getElementById("weekEditor").classList.add("visible");
+        document
+          .getElementById("weekEditor")
+          .scrollIntoView({ behavior: "smooth", block: "nearest" });
+      }
+
+      function saveWeek() {
+        if (!currentWeek) return;
+        const val = document.getElementById("weekContent").value.trim();
+        if (val && val !== DEFAULT_WEEKS[currentWeek]) {
+          weekOverrides[currentWeek] = val;
+          document
+            .getElementById("wpill-" + currentWeek)
+            .classList.add("has-custom");
+        } else {
+          delete weekOverrides[currentWeek];
+          document
+            .getElementById("wpill-" + currentWeek)
+            .classList.remove("has-custom");
+        }
+        showToast("✅ تم حفظ الأسبوع " + currentWeek);
+        closeWeekEditor();
+      }
+
+      function resetWeek() {
+        if (!currentWeek) return;
+        document.getElementById("weekContent").value =
+          DEFAULT_WEEKS[currentWeek];
+        delete weekOverrides[currentWeek];
+        document
+          .getElementById("wpill-" + currentWeek)
+          .classList.remove("has-custom");
+        showToast("↩ تم استعادة محتوى الأسبوع " + currentWeek);
+      }
+
+      function closeWeekEditor() {
+        document.getElementById("weekEditor").classList.remove("visible");
+        document
+          .querySelectorAll(".week-pill")
+          .forEach((p) => p.classList.remove("active"));
+        currentWeek = null;
+      }
+
+      function resetContent(key) {
+        if (key === "nutrition")
+          document.getElementById("content-nutrition").value =
+            DEFAULT_NUTRITION;
+        if (key === "dangers")
+          document.getElementById("content-dangers").value = DEFAULT_DANGERS;
+        showToast("↩ تم استعادة المحتوى الافتراضي");
+      }
+
+      function resetSymptoms() {
+        document.getElementById("sym-nausea").value = DEFAULT_SYMPTOMS.nausea;
+        document.getElementById("sym-back").value = DEFAULT_SYMPTOMS.back;
+        document.getElementById("sym-swelling").value =
+          DEFAULT_SYMPTOMS.swelling;
+        document.getElementById("sym-headache").value =
+          DEFAULT_SYMPTOMS.headache;
+        document.getElementById("sym-constipation").value =
+          DEFAULT_SYMPTOMS.constipation;
+        showToast("↩ تم استعادة جميع الأعراض");
+      }
+
+      // ═══════════════════════════════════════════════════════════
+      // CODE GENERATOR
+      // ═══════════════════════════════════════════════════════════
+      function esc(s) {
+        return String(s)
+          .replace(/\\/g, "\\\\")
+          .replace(/"""/g, '\\"\\"\\"')
+          .replace(/\n/g, "\\n");
+      }
+
+      function generateCode() {
+        const token =
+          document.getElementById("cfg-token").value.trim() ||
+          "YOUR_TELEGRAM_TOKEN_HERE";
+        const welcome = document.getElementById("cfg-welcome").value.trim();
+        const nutrition = document
+          .getElementById("content-nutrition")
+          .value.trim();
+        const dangers = document.getElementById("content-dangers").value.trim();
+        const s_nausea = document.getElementById("sym-nausea").value.trim();
+        const s_back = document.getElementById("sym-back").value.trim();
+        const s_swelling = document.getElementById("sym-swelling").value.trim();
+        const s_headache = document.getElementById("sym-headache").value.trim();
+        const s_constipation = document
+          .getElementById("sym-constipation")
+          .value.trim();
+
+        let weekLines = "";
+        for (let w = 1; w <= 40; w++) {
+          const content = weekOverrides[w] || DEFAULT_WEEKS[w];
+          weekLines += `    ${w}: """${esc(content)}""",\n`;
+        }
+
+        const code = `#!/usr/bin/env python3
+# بوت أمل للحوامل - تم توليده بواسطة لوحة التحكم
+import asyncio, logging
+from telegram import Update, InlineKeyboardButton, InlineKeyboardMarkup
+from telegram.ext import Application, CommandHandler, MessageHandler, CallbackQueryHandler, filters, ContextTypes
+
+logging.basicConfig(format="%(asctime)s - %(name)s - %(levelname)s - %(message)s", level=logging.INFO)
+
+TELEGRAM_TOKEN = "${token}"
+
+WEEKLY_TIPS = {
+${weekLines}}
+
+NUTRITION_TEXT = """${esc(nutrition)}"""
+
+DANGER_SIGNS_TEXT = """${esc(dangers)}"""
+
+COMMON_SYMPTOMS = {
+    "غثيان": """${esc(s_nausea)}""",
+    "ألم ظهر": """${esc(s_back)}""",
+    "تورم": """${esc(s_swelling)}""",
+    "صداع": """${esc(s_headache)}""",
+    "إمساك": """${esc(s_constipation)}""",
+}
+
+def main_menu_keyboard():
+    return InlineKeyboardMarkup([
+        [InlineKeyboardButton("📅 نصائح أسبوعية", callback_data="weekly_tips"),
+         InlineKeyboardButton("🩺 فحص الأعراض", callback_data="symptom_check")],
+        [InlineKeyboardButton("🥗 التغذية والنظام الغذائي", callback_data="nutrition"),
+         InlineKeyboardButton("🚨 علامات الخطر", callback_data="danger_signs")],
+    ])
+
+def week_selection_keyboard():
+    buttons, row = [], []
+    for week in range(1, 41):
+        row.append(InlineKeyboardButton(str(week), callback_data=f"week_{week}"))
+        if len(row) == 5:
+            buttons.append(row); row = []
+    if row: buttons.append(row)
+    buttons.append([InlineKeyboardButton("🔙 رجوع", callback_data="main_menu")])
+    return InlineKeyboardMarkup(buttons)
+
+def symptom_keyboard():
+    return InlineKeyboardMarkup([
+        [InlineKeyboardButton("🤢 غثيان", callback_data="sym_غثيان"),
+         InlineKeyboardButton("🔙 ألم الظهر", callback_data="sym_ألم ظهر")],
+        [InlineKeyboardButton("🦵 تورم القدمين", callback_data="sym_تورم"),
+         InlineKeyboardButton("🤕 صداع", callback_data="sym_صداع")],
+        [InlineKeyboardButton("🚽 إمساك", callback_data="sym_إمساك")],
+        [InlineKeyboardButton("🔙 رجوع", callback_data="main_menu")],
+    ])
+
+def back_keyboard():
+    return InlineKeyboardMarkup([[InlineKeyboardButton("🔙 القائمة الرئيسية", callback_data="main_menu")]])
+
+async def start(update: Update, context: ContextTypes.DEFAULT_TYPE):
+    await update.message.reply_text(
+        "${esc(welcome)}",
+        parse_mode="Markdown", reply_markup=main_menu_keyboard())
+
+async def help_command(update: Update, context: ContextTypes.DEFAULT_TYPE):
+    await start(update, context)
+
+async def button_handler(update: Update, context: ContextTypes.DEFAULT_TYPE):
+    query = update.callback_query
+    await query.answer()
+    data = query.data
+    if data == "main_menu":
+        await query.edit_message_text("🌸 *القائمة الرئيسية*", parse_mode="Markdown", reply_markup=main_menu_keyboard())
+    elif data == "weekly_tips":
+        await query.edit_message_text("📅 *اختاري الأسبوع (1-40):*", parse_mode="Markdown", reply_markup=week_selection_keyboard())
+    elif data.startswith("week_"):
+        w = int(data.split("_")[1])
+        content = WEEKLY_TIPS.get(w, "المعلومات غير متوفرة.")
+        await query.edit_message_text(content, parse_mode="Markdown", reply_markup=back_keyboard())
+    elif data == "symptom_check":
+        await query.edit_message_text("🩺 *اختاري العَرَض:*", parse_mode="Markdown", reply_markup=symptom_keyboard())
+    elif data.startswith("sym_"):
+        content = COMMON_SYMPTOMS.get(data[4:], "استشيري طبيبك لهذا العَرَض.")
+        await query.edit_message_text(content, parse_mode="Markdown", reply_markup=back_keyboard())
+    elif data == "nutrition":
+        await query.edit_message_text(NUTRITION_TEXT, parse_mode="Markdown", reply_markup=back_keyboard())
+    elif data == "danger_signs":
+        await query.edit_message_text(DANGER_SIGNS_TEXT, parse_mode="Markdown", reply_markup=back_keyboard())
+
+async def message_handler(update: Update, context: ContextTypes.DEFAULT_TYPE):
+    await update.message.reply_text("يسعدني مساعدتكِ! 💕\\nاستخدمي الأزرار:", reply_markup=main_menu_keyboard())
+
+def main():
+    if TELEGRAM_TOKEN == "YOUR_TELEGRAM_TOKEN_HERE":
+        print("❌ من فضلك ضعي رمز البوت في السطر الأول!")
+        return
+    asyncio.set_event_loop(asyncio.new_event_loop())
+    app = Application.builder().token(TELEGRAM_TOKEN).build()
+    app.add_handler(CommandHandler("start", start))
+    app.add_handler(CommandHandler("help", help_command))
+    app.add_handler(CallbackQueryHandler(button_handler))
+    app.add_handler(MessageHandler(filters.TEXT & ~filters.COMMAND, message_handler))
+    print("🤰 بوت أمل للحوامل يعمل الآن... 🌸")
+    app.run_polling(allowed_updates=Update.ALL_TYPES)
+
+if __name__ == "__main__":
+    main()
+`;
+
+        window._generatedCode = code;
+        document.getElementById("codeBox").textContent = code;
+        document.getElementById("generateOutput").style.display = "block";
+        document
+          .getElementById("generateOutput")
+          .scrollIntoView({ behavior: "smooth" });
+
+        document.querySelectorAll(".step").forEach((s, i) => {
+          s.classList.toggle("active", i === 0);
+        });
+      }
+
+      function copyCode() {
+        if (!window._generatedCode) return;
+        navigator.clipboard.writeText(window._generatedCode).then(() => {
+          showToast("✅ تم نسخ الكود! الصقيه في VS Code الآن");
+          document
+            .querySelectorAll(".step")
+            .forEach((s, i) => s.classList.toggle("active", i === 1));
+        });
+      }
+
+      // ═══════════════════════════════════════════════════════════
+      // TOAST
+      // ═══════════════════════════════════════════════════════════
+      function showToast(msg) {
+        const t = document.getElementById("toast");
+        t.textContent = msg;
+        t.classList.add("show");
+        setTimeout(() => t.classList.remove("show"), 2500);
+      }
+
+      init();
+    </script>
+  </body>
+</html>
